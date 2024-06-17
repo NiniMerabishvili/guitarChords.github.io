@@ -3,13 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var userRouter = require('./routes/user');
 var songRouter = require('./routes/song');
+var chordRouter = require('./routes/chords');
 
 var app = express();
+
+// Enable CORS with specific configuration
+app.use(cors({
+  origin: 'http://localhost:4200', // Allow requests from the Angular application
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Allow these headers
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/user', userRouter);
 app.use('/song', songRouter);
+app.use('/chords', chordRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

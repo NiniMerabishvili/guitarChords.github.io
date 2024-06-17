@@ -1,10 +1,10 @@
 const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 
-const songSchema = new mongoose.Schema({
-    lyrics: { type: String, required: true },
+const chordSchema = new mongoose.Schema ({
+    chordName: { type: String, required: true }
 }, {
-    collection: 'songs',
+    collection: 'chords',
     timestamps: true,
     read: 'nearest',
     writeConcern: {
@@ -14,5 +14,5 @@ const songSchema = new mongoose.Schema({
     }
 });
 
-const Song = mongoose.model('Song', songSchema);
-module.exports = Song;
+const Chord = mongoose.model('Chord', chordSchema);
+module.exports = Chord;

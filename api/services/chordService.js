@@ -1,7 +1,7 @@
-const SongModel = require('../models/song');
+const ChordModel = require('../models/chords');
 module.exports = { 
     getAll: (req, res) => {
-        SongModel.find({})
+        ChordModel.find({})
             .then(data => {
                 res.json(data);
             })
@@ -11,10 +11,8 @@ module.exports = {
     },
     add: async (req, res) => {
         try {
-            const savedItem = await new SongModel(req.body).save();
+            const savedItem = await new ChordModel(req.body).save();
             res.json(savedItem);
-            
-
         } catch (error) {
             res.status(500).json(error);
         }
