@@ -1,7 +1,6 @@
 <div class="song-upload-container">
   <div *ngIf="!songUploaded">
     <textarea id="lyricsTextarea" [(ngModel)]="lyrics" placeholder="Enter song lyrics"></textarea>
-    <button (click)="handleSelection()">Select Text</button>
     <button (click)="selectChord(selectedChord)">Add Chord</button>
     <button (click)="toggleDisplayChords()">Display Chords</button>
     <ul *ngIf="displayChords">

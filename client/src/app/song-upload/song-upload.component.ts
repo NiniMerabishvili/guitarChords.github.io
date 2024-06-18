@@ -48,18 +48,15 @@ export class SongUploadComponent {
     });
   }
 
-  handleSelection() {
+  selectChord(chord: string) {
+    this.selectedChord = chord;
     const textArea = this.elementRef.nativeElement.querySelector('#lyricsTextarea');
     if (textArea) {
       this.selectedStart = textArea.selectionStart;
       this.selectedEnd = textArea.selectionEnd;
+      this.insertChordInLyrics();
+      this.sendToBackend();
     }
-  }
-
-  selectChord(chord: string) {
-    this.selectedChord = chord;
-    this.insertChordInLyrics();
-    this.sendToBackend();
   }
 
   insertChordInLyrics() {
