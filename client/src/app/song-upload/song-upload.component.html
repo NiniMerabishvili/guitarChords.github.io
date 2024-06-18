@@ -1,25 +1,26 @@
 <div class="song-upload-container">
-    <div *ngIf="!songUploaded">
-      <textarea id="lyricsTextarea" [(ngModel)]="lyrics" placeholder="Enter song lyrics"></textarea>
-      <button (click)="handleSelection()">Select Text</button>
-      <button (click)="selectChord(selectedChord)">Add Chord</button>
-      <button (click)="toggleDisplayChords()">Display Chords</button>
-      <ul *ngIf="displayChords">
-        <li *ngFor="let chord of chords" (click)="selectChord(chord.chordName)">{{ chord.chordName }}</li>
-      </ul>
-      <button (click)="uploadSong()">Upload Song</button>
+  <div *ngIf="!songUploaded">
+    <textarea id="lyricsTextarea" [(ngModel)]="lyrics" placeholder="Enter song lyrics"></textarea>
+    <button (click)="handleSelection()">Select Text</button>
+    <button (click)="selectChord(selectedChord)">Add Chord</button>
+    <button (click)="toggleDisplayChords()">Display Chords</button>
+    <ul *ngIf="displayChords">
+      <li *ngFor="let chord of chords" (click)="selectChord(chord.chordName)">{{ chord.chordName }}</li>
+    </ul>
+    <button (click)="uploadSong()">Upload Song</button>
+  </div>
+  <div *ngIf="songUploaded">
+    <div *ngFor="let segment of lyricsWithChords">
+      <div *ngIf="segment.chord"><strong>{{ segment.chord }}</strong></div>
+      <div>{{ segment.text }}</div>
     </div>
-    <div *ngIf="songUploaded">
-      <div *ngFor="let segment of lyricsWithChords">
+  </div>
+  <ul>
+    <li *ngFor="let song of songs">
+      <div *ngFor="let segment of parseLyrics(song.lyrics)">
         <div *ngIf="segment.chord"><strong>{{ segment.chord }}</strong></div>
         <div>{{ segment.text }}</div>
       </div>
-    </div>
-    <ul>
-        <li *ngFor="let song of songs">{{ song.lyrics }}</li>
-      </ul>
-    <!-- <p>Selected Start: {{ selectedStart }}</p>
-    <p>Selected End: {{ selectedEnd }}</p>
-    <p>Selected Chord: {{ selectedChord }}</p> -->
-  </div>
-  
+    </li>
+  </ul>
+</div>

@@ -20,15 +20,20 @@ export class SongUploadComponent {
   allChords: string[] = [];
   displayChords: boolean = false;
   songUploaded: boolean = false;
-  lyricsWithChords: {chord: string, text: string}[] = [];
+  lyricsWithChords: { chord: string, text: string }[] = [];
 
-  constructor(private http: HttpClient, private elementRef: ElementRef, private chordsService: ChordsService, private songService: SongService) {
+  constructor(
+    private http: HttpClient,
+    private elementRef: ElementRef,
+    private chordsService: ChordsService,
+    private songService: SongService
+  ) {
     this.fetchAllChords();
   }
 
   ngOnInit(): void {
     this.loadChords();
-    this.loadSong();
+    this.loadSongs();
   }
 
   loadChords() {
@@ -37,7 +42,7 @@ export class SongUploadComponent {
     });
   }
 
-  loadSong() {
+  loadSongs() {
     this.songService.getSong().subscribe(s => {
       this.songs = s;
     });
@@ -71,7 +76,7 @@ export class SongUploadComponent {
       start: this.selectedStart,
       end: this.selectedEnd,
       chord: this.selectedChord
-    }).subscribe((response) => {
+    }).subscribe(response => {
       console.log(response);
     });
   }
@@ -85,10 +90,36 @@ export class SongUploadComponent {
   toggleDisplayChords() {
     this.displayChords = !this.displayChords;
   }
+
   uploadSong() {
-    this.http.post('http://localhost:3000/song/add', { lyrics: this.lyrics }).subscribe((response) => {
+    this.http.post('http://localhost:3000/song/add', { lyrics: this.lyrics }).subscribe(response => {
       console.log('Song uploaded:', response);
-      this.songUploaded = true;  // Set flag to true after song is uploaded
+      this.songUploaded = true; // Set flag to true after song is uploaded
+      this.loadSongs(); // Refresh the list of songs
     });
+  }
+
+  parseLyrics(lyrics: string): { chord: string, text: string }[] {
+    const segments: { chord: string, text: string }[] = [];
+    const regex = /\[([^\]]+)\]/g;
+    let match;
+    let lastIndex = 0;
+
+    while ((match = regex.exec(lyrics)) !== null) {
+      const chord = match[1];
+      const text = lyrics.slice(lastIndex, match.index);
+      if (text) {
+        segments.push({ chord: '', text });
+      }
+      segments.push({ chord, text: '' });
+      lastIndex = regex.lastIndex;
+    }
+
+    const remainingText = lyrics.slice(lastIndex);
+    if (remainingText) {
+      segments.push({ chord: '', text: remainingText });
+    }
+
+    return segments;
   }
 }
