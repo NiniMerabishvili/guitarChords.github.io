@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef } from '@angular/core';
 import { ChordsService } from '../shared/services/chords.service';
-import { Chords } from '../shared/models/Chords';
+import { Chords } from '../shared/models/chords';
 import { Song } from '../shared/models/song';
 import { SongService } from '../shared/services/song.service';
 

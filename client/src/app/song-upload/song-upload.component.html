@@ -8,15 +8,10 @@
     </ul>
     <button (click)="uploadSong()">Upload Song</button>
   </div>
-  <div *ngIf="songUploaded">
-    <div *ngFor="let segment of lyricsWithChords">
-      <div *ngIf="segment.chord"><strong>{{ segment.chord }}</strong></div>
-      <div>{{ segment.text }}</div>
-    </div>
-  </div>
-  <ul>
-    <li *ngFor="let song of songs">
-      <div *ngFor="let segment of parseLyrics(song.lyrics)">
+  
+  <ul class="songsParent">
+    <li class="songDiv" *ngFor="let song of songs">
+      <div  *ngFor="let segment of parseLyrics(song.lyrics)">
         <div *ngIf="segment.chord"><strong>{{ segment.chord }}</strong></div>
         <div>{{ segment.text }}</div>
       </div>
