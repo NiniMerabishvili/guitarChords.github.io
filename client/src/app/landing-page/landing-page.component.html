@@ -1,0 +1,9 @@
+<div class="song-titles-container">
+    <button (click)="hostUpload()">Upload a song</button>
+    <ul>
+      <li *ngFor="let song of songs" (click)="navigateToSong(song._id)">
+        {{ song.title }}
+      </li>
+    </ul>
+  </div>
+  

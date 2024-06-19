@@ -6,11 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SongUploadComponent } from './song-upload/song-upload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { SongLyricsComponent } from './song-lyrics/song-lyrics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SongUploadComponent
+    SongUploadComponent,
+    LandingPageComponent,
+    SongLyricsComponent
   ],
   imports: [
     BrowserModule,

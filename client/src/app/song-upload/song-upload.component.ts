@@ -4,6 +4,8 @@ import { ChordsService } from '../shared/services/chords.service';
 import { Chords } from '../shared/models/chords';
 import { Song } from '../shared/models/song';
 import { SongService } from '../shared/services/song.service';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-song-upload',
@@ -14,6 +16,7 @@ export class SongUploadComponent {
   chords: Chords[] = [];
   songs: Song[] = [];
   lyrics = '';
+  songName= '';
   selectedStart = 0;
   selectedEnd = 0;
   selectedChord = '';
@@ -26,7 +29,8 @@ export class SongUploadComponent {
     private http: HttpClient,
     private elementRef: ElementRef,
     private chordsService: ChordsService,
-    private songService: SongService
+    private songService: SongService,
+    private router: Router
   ) {
     this.fetchAllChords();
   }
@@ -89,7 +93,12 @@ export class SongUploadComponent {
   }
 
   uploadSong() {
-    this.http.post('http://localhost:3000/song/add', { lyrics: this.lyrics }).subscribe(response => {
+    const data = {
+      title: this.songName,
+      lyrics: this.lyrics
+    };
+
+    this.http.post('http://localhost:3000/song/add', data).subscribe(response => {
       console.log('Song uploaded:', response);
       this.songUploaded = true; // Set flag to true after song is uploaded
       this.loadSongs(); // Refresh the list of songs
@@ -118,5 +127,9 @@ export class SongUploadComponent {
     }
 
     return segments;
+  }
+
+  goHomePage() {
+    this.router.navigate(['./landing-page']);
   }
 }

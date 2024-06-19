@@ -2,7 +2,8 @@ const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const songSchema = new mongoose.Schema({
-    lyrics: { type: String, required: true },
+    title: { type: String, required: true },
+    lyrics: { type: String, required: true }
 }, {
     collection: 'songs',
     timestamps: true,
