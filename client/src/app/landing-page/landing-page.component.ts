@@ -21,7 +21,7 @@ export class LandingPageComponent {
 
   loadSongTitles(): void {
     this.songService.getSongName().subscribe(songs => {
-      this.songs = songs.map((song, index) => ({ _id: index.toString(), title: song.title, lyrics: '' }));
+      this.songs = songs.map((song, index) => ({ _id: song._id, title: song.title, lyrics: '' }));
     });
   }  
   
