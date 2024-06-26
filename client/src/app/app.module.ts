@@ -8,13 +8,19 @@ import { SongUploadComponent } from './song-upload/song-upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SongLyricsComponent } from './song-lyrics/song-lyrics.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { HeaderComponent } from './header/header.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SongUploadComponent,
     LandingPageComponent,
-    SongLyricsComponent
+    SongLyricsComponent,
+    RegistrationComponent,
+    HeaderComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,

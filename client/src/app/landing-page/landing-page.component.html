@@ -1,4 +1,5 @@
 <div class="song-titles-container">
+  <app-header></app-header>
     <button (click)="hostUpload()">Upload a song</button>
     <ul>
       <li *ngFor="let song of songs" (click)="navigateToSong(song._id)">

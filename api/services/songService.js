@@ -70,6 +70,13 @@ module.exports = {
         } catch (error) {
             res.status(500).json(error);
         }
+    },
+    deleteSong: async (req, res) => {
+        try {
+            await SongModel.deleteOne({ _id: req.params.id });
+            res.json({ success: true });
+        } catch (error) {
+            res.status(500).json(error);
+        }
     }
-    
 }

@@ -9,7 +9,7 @@
     router.get('/title', songService.getTitles);
     router.get('/:id', songService.getOne);
     router.put('/:id/update', songService.updateStatus)
-    
+    router.delete('/:id/delete', songService.deleteSong);
     
 
     module.exports = router;
