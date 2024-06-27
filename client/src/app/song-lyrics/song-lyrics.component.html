@@ -1,6 +1,16 @@
 <app-header></app-header>
-<div>
-    <h1>Hi</h1>
-    <h2> {{ song?.title }} </h2>
-    <pre> {{ song?.lyrics }} </pre>
+
+<div class="song-details" *ngIf="song">
+  <h1>{{ song.title }}</h1>
+  
+  <div class="lyrics">
+    <div *ngFor="let segment of segments" class="segment">
+      <div class="chord" *ngIf="segment.chord">{{ segment.chord }}</div>
+      <div class="text" *ngIf="segment.text">{{ segment.text }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="!song">
+  <p>Loading...</p>
 </div>
