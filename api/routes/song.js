@@ -2,8 +2,9 @@
     const router = express.Router();
 
     const songService = require('../services/songService');
+    const apiSecurity = require('../middleware/apiSecurity');
 
-    router.post('/add', songService.add);
+    router.post('/add', apiSecurity.requireLogin, songService.add);
     router.get('/all', songService.getAll);
     router.get('/all2', songService.getAll2);
     router.get('/title', songService.getTitles);

@@ -144,37 +144,67 @@ module.exports = {
         }
     },
     
+    // login: async (req, res) => {
+    //     const { email, password } = req.body;
+    //     try {
+    //         const user = await UserModel.findOne({  email: req.body.email });
+
+    //         if (!user) {
+    //             return res.status(401).json({ message: 'Authentication failed. User not found.' });
+    //         }
+
+    //         if (bcrypt.compareSync(req.body.password, user.password)) {
+    //             const token = jwt.sign({
+    //                 id: user_id,
+    //                 email: user.email
+    //             }, process.env.SECRET_KEY);
+    //             res.json({ token });
+    //         }
+    //         else {
+    //             return res.status(401).json ({
+    //                 message: 'invalid_credintials'
+    //             });
+    //         }
+
+    //         let role = 'customer'; // Default role
+
+    //         if (user.email === 'admin@gmail.com' && user.password === 'admin1') {
+    //             role = 'admin';
+    //         }
+
+    //         res.json({ user, role }); // Send user object and role back to the client
+    //     } catch (error) {
+    //         res.status(500).json(error);
+    //     }
+    // }
     login: async (req, res) => {
         const { email, password } = req.body;
         try {
-            const user = await UserModel.findOne({  email: req.body.email });
+            const user = await UserModel.findOne({ email });
 
             if (!user) {
                 return res.status(401).json({ message: 'Authentication failed. User not found.' });
             }
 
-            if (bcrypt.compareSync(req.body.password, user.password)) {
-                const token = jwt.sign({
-                    id: user_id,
-                    email: user.email
-                }, process.env.SECRET_KEY);
-                res.json({ token });
-            }
-            else {
-                return res.status(404).json ({
-                    message: 'uesr_not_found'
-                });
+            const isPasswordValid = bcrypt.compareSync(password, user.password);
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: 'Invalid credentials' });
             }
 
             let role = 'customer'; // Default role
-
-            if (user.email === 'admin@gmail.com' && user.password === 'admin1') {
+            if (user.email === 'admin@gmail.com') {
                 role = 'admin';
             }
 
-            res.json({ user, role }); // Send user object and role back to the client
+            const token = jwt.sign({
+                id: user._id,
+                email: user.email
+            }, process.env.SECRET_KEY);
+
+            return res.json({ token, user, role }); // Send token, user object, and role back to the client
         } catch (error) {
-            res.status(500).json(error);
+            console.error('Login error:', error); // Log the error for debugging
+            return res.status(500).json({ message: 'Internal Server Error', error: error.message });
         }
     }
 }

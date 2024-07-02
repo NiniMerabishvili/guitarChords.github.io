@@ -11,5 +11,6 @@ export class HeaderComponent {
     this.router.navigate(['./upload-song']);
   }
 
+  
   constructor ( private router: Router) {};
 }

@@ -1,23 +1,25 @@
 <app-header></app-header>
 <div class="song-upload-container">
-  <div *ngIf="!songUploaded">
+  <div *ngIf="!songUploaded" class="upload-form">
     <input id="text" name="text" [(ngModel)]="songName" placeholder="Song name"> <br>
     <textarea id="lyricsTextarea" [(ngModel)]="lyrics" placeholder="Enter song lyrics"></textarea>
-    <button (click)="selectChord(selectedChord)">Add Chord</button>
-    <button (click)="toggleDisplayChords()">Display Chords</button>
-    <ul *ngIf="displayChords">
+    <div class="button-group">
+      <button (click)="selectChord(selectedChord)">Add Chord</button>
+      <button (click)="toggleDisplayChords()">Display Chords</button>
+    </div>
+    <ul *ngIf="displayChords" class="chord-list">
       <li *ngFor="let chord of chords" (click)="selectChord(chord.chordName)">{{ chord.chordName }}</li>
     </ul>
-    <button (click)="uploadSong()">Upload Song</button>
+    <button class="upload-button" (click)="uploadSong()">Upload Song</button>
   </div>
   
   <ul class="songsParent">
     <li class="songDiv" *ngFor="let song of songs">
-      <div  *ngFor="let segment of parseLyrics(song.lyrics)">
-        <div *ngIf="segment.chord"><strong>{{ segment.chord }}</strong></div>
-        <div>{{ segment.text }}</div>
+      <div *ngFor="let segment of parseLyrics(song.lyrics)" class="lyric-segment">
+        <div *ngIf="segment.chord" class="chord"><strong>{{ segment.chord }}</strong></div>
+        <div class="text">{{ segment.text }}</div>
       </div>
     </li>
   </ul>
-  <button (click)="goHomePage()"> Home </button>
+  <button class="home-button" (click)="goHomePage()">Home</button>
 </div>
